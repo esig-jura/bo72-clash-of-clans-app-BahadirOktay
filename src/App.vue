@@ -1,18 +1,20 @@
 <script setup>
 // Cheat Sheet: https://steve-fallet.notion.site/Vue-3-script-setup-Cheat-Sheet-b12192ceae244ecda65f771579ca02bc
-import {ref} from 'vue'
-import {onMounted} from "vue";
+import {onMounted, ref} from 'vue'
 
 // Tableau des troupes
 const troupes = ref([])
+// troupe.value[0].nom = "toto"
+// console.log(troupes.value[0].nom)
 
 // Quand le composant est monté, on va chercher les données
 onMounted(() => {
-  fetch('https://cocapi.divtec.me/troupes')
-      .then((res) => res.json())
-      .then((data) => {
-        troupes.value = data
-      })
+  // Fetch est une fonction asynchrone qui permet de faire des requetes HTTP
+  fetch('https://cocapi.divtec.me/troupes') // Appel à l'API
+    .then(function(responseAPI) { return responseAPI.json() }) // On récupère les données en JSON et on les transforme en objet JavaScript
+    .then((donneesAuFormatJS) => { // On récupère les données au format JavaScript
+      troupes.value = donneesAuFormatJS // On les stocke dans la variable troupes
+    })
 })
 
 </script>
@@ -41,7 +43,8 @@ onMounted(() => {
     <ul class="cartes">
       <li v-for="troupe in troupes">
         <article>
-          <header :style="'background: linear-gradient(60deg,#3B3B3B 0%, ' + troupe.couleur + ' 100%); '">
+          <header :style="`background: linear-gradient(60deg,#3B3B3B 0%, ${troupe.couleur} 100%);`">
+          <!-- <header :style="'background: linear-gradient(60deg,#3B3B3B 0%, ' + troupe.couleur + ' 100%);'"> -->
             <img :src="troupe.image"
                  :alt="troupe.nom">
           </header>
@@ -51,7 +54,7 @@ onMounted(() => {
           <h2 class="name">{{ troupe.nom }}</h2>
           <button :style="{backgroundColor: troupe.couleur}"> Former
             <img src="/img/piece-or.png" alt="Former"></button>
-          <p class="description">{{troupe.description}}</p>
+          <p class="description">{{ troupe.description }}</p>
           <footer>
             <div class="training"
                  :style="{backgroundColor: troupe.couleur}">
