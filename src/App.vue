@@ -46,6 +46,7 @@ onMounted(() => {
   <PageFooter :site="site"/>
 </template>
 
-<style scoped lang="sass">
+<style scoped>
+
 
 </style>
