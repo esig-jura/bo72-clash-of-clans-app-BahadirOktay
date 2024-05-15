@@ -4,9 +4,17 @@ import {onMounted, ref} from 'vue'
 import PageTopBarre from '@/components/PageTopBarre.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import PageFooter from '@/components/PageFooter.vue'
+import TroupeCarte from '@/components/TroupeCarte.vue'
 
 // Tableau des troupes
 const troupes = ref([])
+// Pièces d'or
+let totalOr = ref(100000);
+
+let titre = ref('Clash of Clans');
+let description = ref('Construire un village, former un clan et participer à des guerres de clans épiques !');
+let site = ref('https://supercell.com/en/games/clashofclans/');
+
 // troupe.value[0].nom = "toto"
 // console.log(troupes.value[0].nom)
 
@@ -23,46 +31,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <PageTopBarre/>
-  <PageHeader/>
+  <PageTopBarre :or="totalOr" />
+  <PageHeader :titre="titre" :description="description" :site="site"/>
   <main>
     <ul class="cartes">
       <li v-for="troupe in troupes">
-        <article>
-          <header :style="`background: linear-gradient(60deg,#3B3B3B 0%, ${troupe.couleur} 100%);`">
-          <!-- <header :style="'background: linear-gradient(60deg,#3B3B3B 0%, ' + troupe.couleur + ' 100%);'"> -->
-            <img :src="troupe.image"
-                 :alt="troupe.nom">
-          </header>
-          <div class="level" :style="{color: troupe.couleur}">
-            Niveau {{ troupe.niveau }}
-          </div>
-          <h2 class="name">{{ troupe.nom }}</h2>
-          <button :style="{backgroundColor: troupe.couleur}"> Former
-            <img src="/img/piece-or.png" alt="Former"></button>
-          <p class="description">{{ troupe.description }}</p>
-          <footer>
-            <div class="training"
-                 :style="{backgroundColor: troupe.couleur}">
-              <div>{{ troupe.formation }}<sup>sec</sup></div>
-              <div>Formation</div>
-            </div>
-            <div class="speed"
-                 :style="{backgroundColor: troupe.couleur}">
-              <div>{{ troupe.vitesse }}</div>
-              <div>Vitesse</div>
-            </div>
-            <div class="cost"
-                 :style="{backgroundColor: troupe.couleur}">
-              <div>{{ troupe.cout }}</div>
-              <div>Coût</div>
-            </div>
-          </footer>
-        </article>
+        <TroupeCarte
+          :troupe="troupe"
+          :or="totalOr"
+        />
       </li>
     </ul>
   </main>
-  <PageFooter/>
+  <PageFooter :site="site"/>
 </template>
 
 <style scoped lang="sass">
