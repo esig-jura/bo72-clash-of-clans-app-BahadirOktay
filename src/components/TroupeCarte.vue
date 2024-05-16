@@ -16,17 +16,21 @@ const props = defineProps({
 <template>
   <article>
     <header :style="`background: linear-gradient(60deg,#3B3B3B 0%, ${troupe.couleur} 100%);`">
-      <!-- <header :style="'background: linear-gradient(60deg,#3B3B3B 0%, ' + troupe.couleur + ' 100%);'"> -->
       <img :src="troupe.image"
            :alt="troupe.nom">
     </header>
+
     <div class="level" :style="{color: troupe.couleur}">
       Niveau {{ troupe.niveau }}
     </div>
+
     <h2 class="name">{{ troupe.nom }}</h2>
+
     <button :style="{backgroundColor: troupe.couleur}"> Former
       <img src="/img/piece-or.png" alt="Former"></button>
+
     <p class="description">{{ troupe.description }}</p>
+
     <footer>
       <div class="training"
            :style="{backgroundColor: troupe.couleur}">
@@ -49,7 +53,7 @@ const props = defineProps({
 
 <style scoped>
 /*** Entête Carte Troupe ***/
-article header {
+header {
   height: 230px;
   padding: 0;
   margin-bottom: 35px;
@@ -58,7 +62,7 @@ article header {
   text-align: center;
 }
 
-article header img {
+header img {
   max-width: 400px;
   max-height: 330px;
   margin-top: -65px;
